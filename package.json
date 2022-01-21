@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon index",
     "prod": "node index.js",
+    "ingestion": "node ingestion",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,8 +15,11 @@
     "apollo-server": "^3.6.1",
     "apollo-server-core": "^3.6.2",
     "bcryptjs": "^2.4.3",
+    "csv-parser": "^3.0.0",
     "dotenv": "^12.0.3",
+    "fs": "^0.0.1-security",
     "graphql": "^15.8.0",
+    "graphql-request": "^3.7.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.6"
   },
