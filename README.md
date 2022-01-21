@@ -1,2 +1,1 @@
-# serviceapi
-Graphql APIs
+# serviceApis
