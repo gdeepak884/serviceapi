@@ -194,7 +194,7 @@ Response:
 ```
 ## Quick Video
 
-![Demo Video](https://www.youtube.com/watch?v=EbYbtmU9VnY)
+[Demo Video](https://www.youtube.com/watch?v=EbYbtmU9VnY)
 
 ## License
 
