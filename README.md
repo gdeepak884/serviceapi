@@ -24,8 +24,6 @@
 
 ## Documentation
 
-[![Demo Video](https://img.youtube.com/vi/EbYbtmU9VnY/0.jpg)](https://www.youtube.com/watch?v=EbYbtmU9VnY)
-
 ## Tech Stack
 
 - NodeJS
@@ -194,6 +192,9 @@ Response:
   }
 }
 ```
+## Quick Video
+
+![Demo Video](https://www.youtube.com/watch?v=EbYbtmU9VnY)
 
 ## License
 
