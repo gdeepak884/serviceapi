@@ -35,7 +35,7 @@
 ## Microservice Architecture
 ## Database schema/design
 ## HLD and LLD
-## APIs Collection
+## APIs Collections
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2b684f9cb08eeb4b7c3a?action=collection%2Fimport)(including doc)
 
@@ -107,7 +107,10 @@ your preferred browser.
 
 ## Data Ingestion
 
-Set Token value in ingestion/index.js, then
+- Set Dataset File Path in the `ingestion/index.js` 
+- Set Token value of any user in `ingestion/index.js`, then
+
+Note: In the dataset please take care that the title values should need to be unique or for the testing purpose, i have attached a CSV file of unique title dataset in  `/data` dir.
 ```
 npm run ingestion
 ```
