@@ -39,7 +39,7 @@
 
 ## API's Postman Collections
 
-![Postman Documentation](https://documenter.getpostman.com/view/13401788/UVXqDsY5)
+[Postman Documentation](https://documenter.getpostman.com/view/13401788/UVXqDsY5)
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2b684f9cb08eeb4b7c3a?action=collection%2Fimport)
 
