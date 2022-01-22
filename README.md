@@ -16,7 +16,7 @@
     <img src="https://img.shields.io/badge/docker-compose-blue?logo=docker"/>
      &nbsp;
     <img src="https://img.shields.io/badge/graphql-v15.8.0-red?logo=graphql&logoColor=red&label=graphql" />
-    &nbsp;
+     &nbsp;
     <img src="https://img.shields.io/badge/heroku-deployed-blue?logo=heroku"/>
 </p>
 
@@ -32,12 +32,14 @@
 - Apollo server
 - JWT
 
-## Microservice Architecture
-## Database schema/design
-## HLD and LLD
+## Database Schema
+
+![Database Schema](https://github.com/gdeepak884/serviceapi/tree/main/img/schema.png)
+
+
 ## APIs Collections
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2b684f9cb08eeb4b7c3a?action=collection%2Fimport)(including doc)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2b684f9cb08eeb4b7c3a?action=collection%2Fimport)`[including doc]`
 
 
 ## Getting setup
@@ -51,27 +53,25 @@
 Download the project
 
 ```
-git clone https://github.com/gdeepak884/serviceapi.git
+$ git clone https://github.com/gdeepak884/serviceapi.git
 ```
 
 To start the server
 
 ```
-cd serviceapi
-docker compose up
+$ cd serviceapi
+$ docker compose up
 ```
 
 to play with APIs, navigate to the below address in
 your preferred browser.
 
-```sh
-127.0.0.1:80/graphql
-```
+`127.0.0.1:80/graphql`
 
 To stop the server
 
 ```
-docker compose down
+$ docker compose down
 ```
 
 <hr>
@@ -85,15 +85,15 @@ docker compose down
 Download the project
 
 ```
-git clone https://github.com/gdeepak884/serviceapi.git
+$ git clone https://github.com/gdeepak884/serviceapi.git
 ```
 
 To start the server
 
 ```
-cd serviceapi
-npm install
-npm run dev/prod
+$ cd serviceapi
+$ npm install
+$ npm run dev/prod
 ```
 * dev for development mode
 * prod for production mode
@@ -101,22 +101,20 @@ npm run dev/prod
 to play with APIs, navigate to the below address in
 your preferred browser.
 
-```sh
-127.0.0.1:80/graphql
-```
+`127.0.0.1:80/graphql`
 
 ## Data Ingestion
 
 - Set Dataset File Path in the `ingestion/index.js` 
 - Set Token value of any user in `ingestion/index.js`, then
 
-Note: In the dataset please take care that the title values should need to be unique or for the testing purpose, i have attached a CSV file of unique title dataset in  `/data` dir.
+> Note: In the dataset please take care that the title values should need to be unique or for the testing purpose, i have attached a CSV dataset of unique title in `/data` dir.
 ```
-npm run ingestion
+$ npm run ingestion
 ```
 or
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/a9e3524fb76919145520?action=collection%2Fimport)(including doc)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/a9e3524fb76919145520?action=collection%2Fimport)`[including doc]`
 
 ## Sample Query
 
@@ -194,10 +192,6 @@ Response:
   }
 }
 ```
-
-### Quick Demo
-
-[Sample Video](https://google.com)
 
 ## License
 
