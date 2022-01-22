@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const checkAuth = require('../util/auth');
 const User = require('../models/Users');
+const Book = require('../models/Books');
 const { AuthenticationError, UserInputError } = require('apollo-server');
 const { validatesigninUser, validatesignupUser, validateProfileUpdate } = require('../util/validation');
 const path = require('path');
@@ -116,6 +117,18 @@ module.exports = {
         if(user){
         if (user.username === user_auth.username) {
           await user.delete();
+          //delete user from likes and reads
+          const books = await Book.find({ });
+          books.forEach(async (book) => {
+            if (book.likes.find((like) => like.username === user.username)) {
+              book.likes = book.likes.filter((like) => like.username !== user.username);
+              await book.save();
+            }
+            if (book.reads.find((read) => read.username === user.username)) {
+              book.reads = book.reads.filter((read) => read.username !== user.username);
+              await book.save();
+            }
+          });
           return 'User Deleted Successfully';
         } else {
           throw new AuthenticationError('Action not allowed');
