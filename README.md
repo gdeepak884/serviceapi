@@ -24,6 +24,7 @@
 
 ## Documentation
 
+
 ## Tech Stack
 
 - NodeJS
@@ -34,7 +35,7 @@
 
 ## Database Schema
 
-![Database Schema](https://github.com/gdeepak884/serviceapi/tree/main/img/schema.png)
+![Database Schema](https://raw.githubusercontent.com/gdeepak884/serviceapi/main/img/schema.png?token=GHSAT0AAAAAABO4KBTLWIVMMUU7NAFWKK6GYPVHGKQ)
 
 
 ## APIs Collections
