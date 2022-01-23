@@ -24,6 +24,8 @@
 
 ## Documentation
 
+![APIs](https://raw.githubusercontent.com/gdeepak884/serviceapi/main/img/apis.png?token=GHSAT0AAAAAABO4KBTKXAG76J3CTD74ICAGYPV3CJQ)
+
 ## Tech Stack
 
 - NodeJS
@@ -32,6 +34,9 @@
 - Apollo server
 - JWT
 
+## Architecture Design
+
+![Architecture Design](https://raw.githubusercontent.com/gdeepak884/serviceapi/main/img/architecture.png?token=GHSAT0AAAAAABO4KBTLNDC2HUVCQXSHBLNUYPV3CKQ)
 ## Database Schema
 
 ![Database Schema](https://raw.githubusercontent.com/gdeepak884/serviceapi/main/img/schema.png?token=GHSAT0AAAAAABO4KBTLWIVMMUU7NAFWKK6GYPVHGKQ)
