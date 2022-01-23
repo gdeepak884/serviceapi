@@ -26,6 +26,65 @@
 
 ![APIs](https://raw.githubusercontent.com/gdeepak884/serviceapi/main/img/apis.png?token=GHSAT0AAAAAABO4KBTKXAG76J3CTD74ICAGYPV3CJQ)
 
+### User Services
+
+1. getUser(): Get users details
+
+2. signup(): Signup new user
+   - Requires: fname, lname, username, password, confirmPassword, email, phone 
+   - Validation: Unique username
+   - Returns: token, user details
+
+3. signin(): Signin existing user
+    - Requires: username, password
+    - Validation: User should exist
+    - Returns: token, user details
+
+4. deleteUser(): Delete user
+    - Requires: userId
+    - Headers: Authorization: Bearer 'token_value'
+    - Validation: User should exist
+    - Extra: Delete User likes and reads from books
+
+5. updateProfile(): Update user profile
+    - Requires: userId, fname, lname, email, phone
+    - Headers: Authorization: Bearer 'token_value'
+    - Validation: User should exist
+
+### Content Services
+
+1. newBooks(): Get all books sorted by date
+
+2. topBooks(): Get top books sorted on the basis of number of interactions, likes and reads.
+
+3. createBook(): Create new book
+    - Requires: title, story
+    - Headers: Authorization: Bearer 'token_value'
+    - Validation: Unique title
+
+4. updateBook(): Update book
+    - Requires: bookId, title, story
+    - Headers: Authorization: Bearer 'token_value'
+    - Validation: Book should exist
+         
+5. deleteBook(): Delete book
+    - Requires: bookId
+    - Headers: Authorization: Bearer 'token_value'
+    - Validation: Book should exist
+
+### User Interaction Services
+
+1. readBook(): Mark book as read
+    - Requires: bookId
+    - Headers: Authorization: Bearer 'token_value'
+    - Validation: Book should exist, user should exist
+
+2. likeBook(): Mark book as liked
+    - Requires: bookId
+    - Headers: Authorization: Bearer 'token_value'
+    - Validation: Book should exist, user should exist
+
+
 ## Tech Stack
 
 - NodeJS
