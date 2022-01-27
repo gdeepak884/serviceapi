@@ -53,6 +53,14 @@ module.exports = gql`
     numberOfInteractions: Int!
   }
 
+  type Book {
+    _id: String!
+    title: String!,
+    story: String!,
+    published: String!
+    username: String!
+  }
+
   type Interactions {
     _id: ID!
     bookId: String!
@@ -73,7 +81,7 @@ module.exports = gql`
     signin(username: String!, password: String!): Users!
     deleteUser(userId: ID!): String!
     updateProfile(userId: ID!, fname: String!, lname: String!, email: String!, phone: Float!): String!
-    createBook(title: String!, story: String!): Books!
+    createBook(title: String!, story: String!): Book!
     updateBook(bookId: ID!, title: String!, story: String!): String!
     deleteBook(bookId: ID!): String!
     readBook(bookId: ID!): String!
