@@ -1,34 +1,78 @@
 const { AuthenticationError, UserInputError } = require('apollo-server');
 const { validateBook } = require('../util/validation');
 const Books = require('../models/Books');
+const Interactions = require('../models/Interactions')
 const checkAuth = require('../util/auth');
 
 module.exports = {
   Query: {
     async newBooks() {
       try {
-        const books = await Books.find().sort({ published: -1 });
-        return books;
+        const new_books = await Interactions.aggregate([
+          {
+            $lookup: {
+              from: 'books',
+              localField: 'bookId',
+              foreignField: '_id',
+              as: 'books'
+            }
+          },
+          {
+            $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$books", 0 ] }, "$$ROOT" ] } },
+         },
+
+         { 
+         $project: {  
+            bookId: 1,
+            title: 1,
+            story: 1,
+            published: 1,
+            username: 1,
+            reads: 1,
+            likes: 1,
+            likeCount: { $size: "$likes" },
+            readCount: { $size: "$reads" },
+            numberOfInteractions: { $sum :[{ $size: "$reads" },{ $size: "$likes" }]}
+           } 
+          }
+         ]).sort({ published: -1 })
+        return new_books;
       } catch (err) {
         throw new Error(err);
       }
     },
+
     async topBooks() {
       try {
-        const interactions = Books.aggregate([{
-           $project: {
-              title: "$title",
-              story: "$story",
-              published: "$published",
-              username: "$username",
-              reads: "$reads",
-              likes: "$likes",
-              numberOfInteractions: { $sum :[{ $size: "$reads" },{ $size: "$likes" }]}
+        const top_books = await Interactions.aggregate([
+          {
+            $lookup: {
+              from: 'books',
+              localField: 'bookId',
+              foreignField: '_id',
+              as: 'books'
             }
+          },
+          {
+            $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$books", 0 ] }, "$$ROOT" ] } },
+         },
+
+         { 
+         $project: {  
+            bookId: 1,
+            title: 1,
+            story: 1,
+            published: 1,
+            username: 1,
+            reads: 1,
+            likes: 1,
+            likeCount: { $size: "$likes" },
+            readCount: { $size: "$reads" },
+            numberOfInteractions: { $sum :[{ $size: "$reads" },{ $size: "$likes" }]}
+           } 
           }
-        ])
-        const books = await interactions.sort({ numberOfInteractions: -1 });
-        return books;
+         ]).sort({ numberOfInteractions: -1 })
+        return top_books;
       } catch (err) {
         throw new Error(err);
       }
@@ -60,6 +104,12 @@ module.exports = {
         published: new Date().toISOString()
       });
       const book = await newBook.save();
+
+      const newInt = new Interactions({
+        bookId: book._id,
+        published: new Date().toISOString()
+      });
+      const Int = await newInt.save();
       return book;
     },
 
@@ -68,9 +118,12 @@ module.exports = {
 
       try {
         const book = await Books.findById(bookId);
+        const Interaction = await Interactions.findOne({ bookId });
         if(book) {
         if (user.username === book.username) {
           await book.delete();
+          //delete interactions for this book
+          await Interaction.delete();
           return 'Book Deleted!';
         } else {
           throw new AuthenticationError('Action not allowed');

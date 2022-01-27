@@ -1,28 +1,39 @@
 const { AuthenticationError, UserInputError } = require('apollo-server');
 const checkAuth = require('../util/auth');
 const User = require('../models/Users');
-const Books = require('../models/Books');
+// const Books = require('../models/Books'); // redundant
+const Interactions = require('../models/Interactions')
 
 module.exports = {
+  Query: {
+    async getInteractions() {
+      try {
+        const interactions = await Interactions.find();
+        return interactions;
+      } catch (err) {
+        throw new Error(err);
+      }
+    }
+  },
   Mutation: {
     async  likeBook(_, { bookId }, context) {
-    
       const { username } = checkAuth(context);
       const user = await User.findOne({ username });
-      const book = await Books.findById(bookId);
+      // const book = await Books.findById(bookId); // redundant
+      const likeInt = await Interactions.findOne({ bookId });
       //check if the user is available in user table
-      if (book) {
+      if (likeInt) {
         if(user) {
-        if (book.likes.find((like) => like.username === username)) {
-          book.likes = book.likes.filter((like) => like.username !== username);
-          await book.save();
+        if (likeInt.likes.find((like) => like.username === username)) {
+          likeInt.likes = likeInt.likes.filter((like) => like.username !== username);
+          await likeInt.save();
           return "You disliked this book";
         } else {
-          book.likes.push({
+          likeInt.likes.push({
             username,
             likedAt: new Date().toISOString()
           });
-          await book.save();
+          await likeInt.save();
           return "You liked this book";
         }
         } else throw new AuthenticationError('User Not Found');
@@ -30,22 +41,22 @@ module.exports = {
     },
     
     async readBook(_, { bookId }, context) {
-
       const { username } = checkAuth(context);
       //check if the user is available in user table
       const user = await User.findOne({ username });
-      const book = await Books.findById(bookId);
-      if (book) {
+      // const book = await Books.findById(bookId); // redundant
+      const readInt = await Interactions.findOne({ bookId });
+      if (readInt) {
         if(user) {
-        if (book.reads.find((read) => read.username === username)) {
+        if (readInt.reads.find((read) => read.username === username)) {
           return "You already read this book";
         }
         else{ 
-            book.reads.push({
+          readInt.reads.push({
             username,
             readAt: new Date().toISOString()
           });
-          await book.save();
+          await readInt.save();
           return "You read this book";
         }
         } else throw new AuthenticationError('User Not Found');

@@ -39,12 +39,23 @@ module.exports = gql`
     likedAt: String!
     username: String!
   }
+  
   type Books {
-    _id: ID!
+    bookId: String!
     title: String!,
     story: String!,
     published: String!
     username: String!
+    reads: [Read]!
+    likes: [Like]!
+    likeCount: Int!
+    readCount: Int!
+    numberOfInteractions: Int!
+  }
+
+  type Interactions {
+    _id: ID!
+    bookId: String!
     reads: [Read]!
     likes: [Like]!
     likeCount: Int!
@@ -55,6 +66,7 @@ module.exports = gql`
     getUsers: [User]
     newBooks: [Books]
     topBooks: [Books]
+    getInteractions: [Interactions]
   }
   type Mutation {
     signup(signupInput: SignupInput): Users!

@@ -3,13 +3,14 @@ const usersResolvers = require('./users');
 const interactionsResolvers = require('./interactions');
 
 module.exports = {
-  Books: {
+  Interactions: {
     likeCount: (parent) => parent.likes.length,
     readCount: (parent) => parent.reads.length
   },
   Query: {
     ...booksResolvers.Query,
-    ...usersResolvers.Query
+    ...usersResolvers.Query,
+    ...interactionsResolvers.Query
   },
   Mutation: {
     ...usersResolvers.Mutation,

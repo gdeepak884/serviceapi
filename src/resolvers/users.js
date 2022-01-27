@@ -2,7 +2,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const checkAuth = require('../util/auth');
 const User = require('../models/Users');
-const Book = require('../models/Books');
+// const Book = require('../models/Books'); //redundant
+const Interaction = require('../models/Interactions');
 const { AuthenticationError, UserInputError } = require('apollo-server');
 const { validatesigninUser, validatesignupUser, validateProfileUpdate } = require('../util/validation');
 const path = require('path');
@@ -60,12 +61,7 @@ module.exports = {
         token
       };
     },
-    async signup(
-      _,
-      {
-        signupInput: { fname, lname, username, password, confirmPassword, email, phone }
-      }
-    ) {
+    async signup(_,{ signupInput: { fname, lname, username, password, confirmPassword, email, phone } }) {
       const { valid, errors } = validatesignupUser(
         fname,
         lname,
@@ -117,16 +113,16 @@ module.exports = {
         if(user){
         if (user.username === user_auth.username) {
           await user.delete();
-          //delete user from likes and reads
-          const books = await Book.find({ });
-          books.forEach(async (book) => {
-            if (book.likes.find((like) => like.username === user.username)) {
-              book.likes = book.likes.filter((like) => like.username !== user.username);
-              await book.save();
+          // delete interactions since user is deleted.
+          const interaction = await Interaction.find({  });
+          interaction.forEach(async (interaction) => {
+            if (interaction.likes.find((like) => like.username === user.username)) {
+              interaction.likes = interaction.likes.filter((like) => like.username !== user.username);
+              await interaction.save();
             }
-            if (book.reads.find((read) => read.username === user.username)) {
-              book.reads = book.reads.filter((read) => read.username !== user.username);
-              await book.save();
+            if (interaction.reads.find((read) => read.username === user.username)) {
+              interaction.reads = interaction.reads.filter((read) => read.username !== user.username);
+              await interaction.save();
             }
           });
           return 'User Deleted Successfully';
