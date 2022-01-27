@@ -1,7 +1,7 @@
 <h1 align="center">ServiceApis</h1>
 
 <p align="center">
-  <i>Microservices for Content & User Services</i>
+  <i>Microservices for Content, User & User Interaction</i> Services</i>
   <br>
 </p>
 
@@ -44,7 +44,7 @@
     - Requires: userId
     - Headers: Authorization: Bearer 'token_value'
     - Validation: User should exist
-    - Extra: Delete User likes and reads from books
+    - Extra: Delete User likes and reads from interactions collection
 
 5. updateProfile(): Update user profile
     - Requires: userId, fname, lname, email, phone
@@ -71,15 +71,18 @@
     - Requires: bookId
     - Headers: Authorization: Bearer 'token_value'
     - Validation: Book should exist
+    - Extra: Delete interactions for this book
 
 ### User Interaction Services
 
-1. readBook(): Mark book as read
+1. getInteractions(): Get all interactions
+
+2. readBook(): Mark book as read
     - Requires: bookId
     - Headers: Authorization: Bearer 'token_value'
     - Validation: Book should exist, user should exist
 
-2. likeBook(): Mark book as liked
+3. likeBook(): Mark book as liked
     - Requires: bookId
     - Headers: Authorization: Bearer 'token_value'
     - Validation: Book should exist, user should exist
@@ -190,23 +193,24 @@ Request:
 
 query{
   topBooks{
-    _id
+    bookId
     title
     story
-    published
     username
+    published
+    likeCount
+    readCount
     likes{
       _id
-      username
       likedAt
+      username
     }
     reads{
       _id
-      username
       readAt
+      username
     }
-    likeCount
-    readCount
+    numberOfInteractions
   }
 }
 
@@ -222,37 +226,82 @@ Response:
   "data": {
     "topBooks": [
       {
-        "_id": "61e5fe971df9db7d3247ef00",
-        "title": "tes",
-        "story": "tess",
-        "published": "2022-01-17T23:41:11.512Z",
-        "username": "gdee",
-        "likes": [],
-        "reads": [
+        "bookId": "61f2969c92057ecdfd56d77f",
+        "title": "testing1",
+        "story": "testing",
+        "username": "new9",
+        "published": "2022-01-27T12:57:00.700Z",
+        "likeCount": 1,
+        "readCount": 1,
+        "likes": [
           {
-            "_id": "61e6720d7bb28c32f6f1bf7f",
-            "username": "gdee",
-            "readAt": "2022-01-18T07:53:49.450Z"
-          },
-          {
-            "_id": "61e673e20bacec92eb0b6797",
-            "username": "gdeeh",
-            "readAt": "2022-01-18T08:01:38.764Z"
+            "_id": "61f296d73eb1cc7571aaf003",
+            "likedAt": "2022-01-27T12:57:59.905Z",
+            "username": "new9"
           }
         ],
-        "likeCount": 0,
-        "readCount": 2
+        "reads": [
+          {
+            "_id": "61f296e33eb1cc7571aaf008",
+            "readAt": "2022-01-27T12:58:11.084Z",
+            "username": "new9"
+          }
+        ],
+        "numberOfInteractions": 2
       },
       {
-        "_id": "61e6a0b3bd0b9fe7800285e8",
-        "title": "new book test",
-        "story": "book test",
-        "published": "2022-01-18T11:12:51.453Z",
-        "username": "gdeeh",
+        "bookId": "61f2ad86800745680ec0020c",
+        "title": "testing122",
+        "story": "testing",
+        "username": "new12",
+        "published": "2022-01-27T14:34:46.725Z",
+        "likeCount": 1,
+        "readCount": 1,
+        "likes": [
+          {
+            "_id": "61f2af541330c071df7a8ebb",
+            "likedAt": "2022-01-27T14:42:28.632Z",
+            "username": "new12"
+          }
+        ],
+        "reads": [
+          {
+            "_id": "61f2adb9800745680ec00218",
+            "readAt": "2022-01-27T14:35:37.796Z",
+            "username": "new12"
+          }
+        ],
+        "numberOfInteractions": 2
+      },
+      {
+        "bookId": "61f2969792057ecdfd56d77a",
+        "title": "testing",
+        "story": "testing",
+        "username": "new9",
+        "published": "2022-01-27T12:56:55.880Z",
+        "likeCount": 1,
+        "readCount": 0,
+        "likes": [
+          {
+            "_id": "61f296f23eb1cc7571aaf010",
+            "likedAt": "2022-01-27T12:58:26.746Z",
+            "username": "new9"
+          }
+        ],
+        "reads": [],
+        "numberOfInteractions": 1
+      },
+      {
+        "bookId": "61f2ad7e800745680ec001fd",
+        "title": "testing111",
+        "story": "testing",
+        "username": "new12",
+        "published": "2022-01-27T14:34:38.860Z",
+        "likeCount": 0,
+        "readCount": 0,
         "likes": [],
         "reads": [],
-        "likeCount": 0,
-        "readCount": 0
+        "numberOfInteractions": 0
       }
     ]
   }
